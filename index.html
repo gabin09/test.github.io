@@ -1,17 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>대전 대신중학교의 순발력 짱을 찾아라!</title>
-    <style>
+<title>확률 게임</title>
+<style>
+    .container {
+        margin: 0 auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    }
+    h1 {
+    color: #333;
+    }
 
-    </style>
+    button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    }
+</style>
 </head>
 <body>
-    <a href="#" onclick="location.href='doble.html'">도블</a>
-    <a href="#" onclick="location.href='getparking.html'">겟 패킹</a>
-    <a href="#" onclick="location.href='getparking.html'">에코 링크</a>
-    <a href="#" onclick="location.href='getparking.html'">시바견 하우스</a>
-    <a href="#" onclick="location.href='getparking.html'">쿠키 박스</a>
-    <a href="#" onclick="location.href='getparking.html'">꼬치의 달인</a>
+<div class="container">
+    <h1>확률 게임</h1>
+    <p id="roundNumber">라운드 1에 도전합니다!</p>
+    <button id="playButton" onclick="playRound()">도전하기</button>
+    <button id="restartButton" onclick="restartGame()" style="display: none;">처음으로</button>
+    <p id="result"></p>
+</div>
+
+<script>
+    var round = 1;
+    var probabilities = [0.9, 0.8, 0.7, 0.6, 0.5, 0.2, 0.1, 0.05, 0.03, 0.01];
+    
+    function playRound() {
+    var randomNumber = Math.random();
+    var successProbability = probabilities[round - 1];
+    
+    if (randomNumber <= successProbability) {
+        document.getElementById("result").innerHTML = "라운드 " + round + "을 통과했습니다!";
+    } else {
+        document.getElementById("result").innerHTML = "라운드 " + round + "을 통과하지 못했습니다.";
+        document.getElementById("playButton").disabled = true;
+        document.getElementById("restartButton").style.display = "inline-block";
+    }
+    
+    if (round === 10) {
+        document.getElementById("playButton").disabled = true;
+        document.getElementById("restartButton").style.display = "inline-block";
+        document.getElementById("playButton").innerHTML = "게임 종료";
+    } else {
+        round++;
+        document.getElementById("roundNumber").innerHTML = "라운드 " + round + "에 도전합니다!";
+    }
+    }
+    
+    function restartGame() {
+    round = 1;
+    document.getElementById("roundNumber").innerHTML = "라운드 1에 도전합니다!";
+    document.getElementById("playButton").disabled = false;
+    document.getElementById("playButton").innerHTML = "도전하기";
+    document.getElementById("restartButton").style.display = "none";
+    document.getElementById("result").innerHTML = "";
+    }
+</script>
 </body>
 </html>
